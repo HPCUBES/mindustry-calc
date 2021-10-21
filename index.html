@@ -1,0 +1,109 @@
+<html>
+
+<head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="css/kmsjsmap.min.css">
+	<style>
+		[w] {
+			color: white
+		}
+	</style>
+</head>
+
+<body>
+	<div item class="ui modal">
+		<div class="header">Select the type </div>
+		<div class="actions">
+			<div itemlist></div>
+			<div class="ui three buttons">
+				<!--item-->
+				<div class="ui ok button" style="border:0.5px solid white">Cancel </div>
+			</div>
+		</div>
+	</div>
+	<div class="ui card fluid" style="width: calc(100% - 40px);padding: 25px 20px 25px 20px;">
+		<h1 class="header top attached ui">产能计算</h1>
+
+		<div class="ui left action input icon">
+			<div class="ui button icon" chose1>
+				未选择
+				<img class="icon" src="img/base/void.png"></img>
+			</div>
+			<input placeholder="times" val1>
+			<i class="circular right arrow link icon" onclick="calc .main ( 'map' , calc .task1 .name , $('[val1]') .val() ,'[map1]')"></i>
+		</div>
+
+		<div class="ui card fluid" show1>
+			<br/>
+			<div id="map" style="width:100%;height:450px;overflow: scroll;"></div>
+			<div map1></div>
+		</div>
+
+		<h1 class="ui attached  top  attached ">机器效率</h1>
+		<div class="input ui left action icon">
+			<div class="ui button icon" chose2>
+				未选择
+				<img class="icon" src="img/base/void.png"></img>
+			</div>
+			<input val2 placeholder="min:1">
+			<i class="circular right arrow link icon" onclick="if(calc.task2)calc.calc('[show2]',calc.task2,$('[val2]').val())"></i>
+		</div>
+
+		<div class="ui card fluid" show2>
+			<div class="ui header top attached ">无信息</div>
+		</div>
+		<div class="ui button" onclick="kmsjsmap.screenshot()">截图</div>
+	</div>
+
+
+
+
+
+	<script src="src/jQuery.js"></script>
+	<script src="src/semantic.js"></script>
+	<script src="src/kmsjsmap.min.js"></script>
+	<script src="src/calc.js"></script>
+	<script src="src/data.js"></script>
+	<script>
+		//summon
+		calc.addtochose('[item]', "[itemlist]", [
+			{
+				id: '[chose1]',
+				call: function (val) {
+					if (val.type !== 'item') {
+						alert('只能是物品或液体')
+						return false
+					}
+					calc.task1 = val
+					calc .main ( 'map' , calc .task1 .name , $('[val1]') .val(),'[map1]' )
+				}
+			},
+			{
+				id: '[chose2]',
+				call: function (val) {
+					if (val.type !== 'block') {
+						alert('只能是方块')
+						return false
+					}
+					calc.task2  = val
+					calc.calc('[show2]', val , $ ('[val2]') .val() )
+				}
+			}
+		])
+		//calc .initmap ( "map" )
+		calc.main("map","巨浪合金",1000,'[map1]')
+	</script>
+	<script>
+		$(".button").css({
+			color: "white",
+			borderRadius: 0
+		})
+		$("input").css({
+			borderRadius: 0
+		})
+	</script>
+</body>
+
+</html>
